@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://www.jgroups.org/schema/jgroups.xsd" uri="www.jgroups.org/schema/jgroups.xsd"/>
+    <system systemId="http://www.jgroups.org/schema/relay.xsd" uri="www.jgroups.org/schema/relay.xsd"/>
+    <system systemId="http://www.jgroups.org/schema/fork-stacks.xsd" uri="www.jgroups.org/schema/fork-stacks.xsd"/>
+</catalog>

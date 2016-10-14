@@ -1,0 +1,50 @@
+<!--
+  Default stack using IP multicasting. It is similar to the "udp"
+  stack in stacks.xml, but doesn't use streaming state transfer and flushing
+  author: Bela Ban
+-->
+
+<config xmlns="urn:org:jgroups"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/jgroups.xsd">
+    <UDP
+	 ucast_recv_buf_size="163K"
+         ucast_send_buf_size="163K"
+         mcast_recv_buf_size="163K"
+         mcast_send_buf_size="163K" /><!--transporte -->
+
+    <PING /> 	<!--Descoberta --> 
+
+    <FD_ALL/>   <!--Detecção de Falha -->
+        		<!--Ordenação-->
+  
+  
+    <VERIFY_SUSPECT  /> <!-- verifica se não responder o ping, e o menbro é espulso -->
+    <BARRIER/>
+
+    <pbcast.NAKACK use_mcast_xmit="true"
+
+                   discard_delivered_msgs="true"/>  <!--Confiabilidade -->
+
+    <UNICAST3 />  <!--UNICAST3 visa manter as características positivas de unicast e UNICAST2, enquanto que fixa os negativos. Deveria
+											- Fornecer gerenciamento de conexão correta (usando o estabelecimento da conexão explícita e fases de desmontagem)
+											- Evitar problemas com fechamento concorrente e envio de mensagens na mesma ligação, através de lavagem mensagens pendentes
+  												antes de fechar uma conexão
+											 	Reduzir os requisitos de memória do remetente, purgando rapidamente mensagens recebidos pelo receptor
+											- Reduzir o tráfego baseado em ack
+											- Fornecer retransmissão seletiva (pedido do receptor para o remetente)  /--> 
+    <RSVP /> <!-- pedindo confirmação de ACK, retransmite  /-->
+    <pbcast.STABLE stability_delay="1000" desired_avg_gossip="2000"
+                        max_bytes="4M"/>
+
+    <pbcast.GMS print_local_addr="true" join_timeout="3000"
+
+                view_bundling="true"/> <!--Menbros do grupo -->
+                
+    <MERGE2/>     <!--Reagrupamento-->
+    
+    <UFC  />
+    <MFC  />
+    <FRAG2 />
+    <pbcast.STATE_TRANSFER />                   <!-- Transferencia de estado  /-->
+</config>
